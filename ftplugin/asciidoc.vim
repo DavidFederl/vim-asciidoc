@@ -1,6 +1,6 @@
 " Vim filetype plugin
-" Language:   asciidoctor
-" Maintainer: Maxim Kim <habamax@gmail.com>
+" Language:   asciidoc
+" Maintainer: David P. Federl <david-peter.federl@federl.digital>
 " Filenames:  *.adoc
 " vim: et sw=4
 

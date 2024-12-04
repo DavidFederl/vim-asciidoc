@@ -1,4 +1,4 @@
-" Maintainer: Maxim Kim (habamax@gmail.com)
+" Maintainer: David P. Federl (david-peter.federl@federl.digital)
 " vim: et sw=4
 
 if exists("g:loaded_asciidoctor_autoload")

@@ -1,6 +1,6 @@
 " Vim syntax file
 " Language:     asciidoctor
-" Maintainer:   Maxim Kim <habamax@gmail.com>
+" Maintainer:   David P. Federl <david-peter.federl@federl.digital>
 " Filenames:    *.adoc
 " vim: et sw=4
 

@@ -1,7 +1,7 @@
 *asciidoctor.txt*  Vim :heart: Asciidoctor
 
-Author:  Maxim Kim <https://habamax.github.io>
-URL:     https://github.com/habamax/vim-asciidoctor
+Author:  David P. Federl <https://github.com/DavidFederl>
+URL:     https://github.com/DavidFederl/vim-asciidoc
 License: MIT
 
 
