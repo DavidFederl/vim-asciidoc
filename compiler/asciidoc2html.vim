@@ -1,6 +1,6 @@
 " Vim compiler file
 " Compiler: Asciidoctor2HTML
-" Maintainer: Maxim Kim (habamax@gmail.com)
+" Maintainer: David P. Federl (david-peter.federl@federl.digital)
 " vim: et sw=4
 
 if exists("current_compiler")

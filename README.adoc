@@ -34,7 +34,7 @@ You can use git command on your command line:
 [source,bash]
 --------
 
-git clone https://github.com/habamax/vim-asciidoctor.git ~/.vim/pack/my-packages/start/vim-asciidoctor
+git clone https://github.com/DavidFederl/vim-asciidoc.git ~/.vim/pack/my-packages/start/vim-asciidoc
 
 --------
 
@@ -42,7 +42,7 @@ For windows users you should change `~/.vim` to `%USERPROFILE%/vimfiles`
 [source,cmd]
 --------
 
-git clone https://github.com/habamax/vim-asciidoctor.git %USERPROFILE%/vimfiles/pack/my-packages/start/vim-asciidoctor
+git clone https://github.com/DavidFederl/vim-asciidoc.git %USERPROFILE%/vimfiles/pack/my-packages/start/vim-asciidoc
 
 --------
 
@@ -51,7 +51,7 @@ or `minpac` package manager (to add to your `.vimrc`):
 [source,vim]
 --------
 
-call minpac#add('habamax/vim-asciidoctor')
+call minpac#add('DavidFederl/vim-asciidoc')
 
 --------
 
@@ -62,7 +62,7 @@ call minpac#add('habamax/vim-asciidoctor')
 [source,vim]
 --------
 
-Plug 'habamax/vim-asciidoctor'
+Plug 'DavidFederl/vim-asciidoc'
 
 --------
 

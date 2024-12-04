@@ -86,9 +86,9 @@ else
     let s:make = ':make'
 endif
 
-exe 'command! -buffer Asciidoctor2PDF :compiler asciidoctor2pdf | '   . s:make
-exe 'command! -buffer Asciidoctor2HTML :compiler asciidoctor2html | ' . s:make
-exe 'command! -buffer Asciidoctor2DOCX :compiler asciidoctor2docx | ' . s:make
+exe 'command! -buffer Asciidoctor2PDF :compiler asciidoc2pdf | '   . s:make
+exe 'command! -buffer Asciidoctor2HTML :compiler asciidoc2html | ' . s:make
+exe 'command! -buffer Asciidoctor2DOCX :compiler asciidoc2docx | ' . s:make
 
 command! -buffer AsciidoctorOpenRAW  call asciidoctor#open_file(s:get_fname())
 command! -buffer AsciidoctorOpenPDF  call asciidoctor#open_file(s:get_fname(".pdf"))
