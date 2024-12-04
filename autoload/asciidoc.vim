@@ -1,10 +1,10 @@
 " Maintainer: David P. Federl (david-peter.federl@federl.digital)
 " vim: et sw=4
 
-if exists("g:loaded_asciidoctor_autoload")
+if exists("g:loaded_asciidoc_autoload")
     finish
 endif
-let g:loaded_asciidoctor_autoload = 1
+let g:loaded_asciidoc_autoload = 1
 
 
 "" Trim string
@@ -19,7 +19,7 @@ endfunc
 " It is either 
 " * '' (empty)
 " * or value of :imagesdir: (stated at the top of the buffer, first 50 lines)
-func! s:asciidoctorImagesDir()
+func! s:asciidocImagesDir()
     let imagesdirs = filter(getline(1, 50), {k,v -> v =~ '^:imagesdir:.*'})
     if len(imagesdirs)>0
         return matchstr(imagesdirs[0], ':imagesdir:\s*\zs\f\+\ze$').'/'
@@ -31,20 +31,20 @@ endfunc
 "" Return full path of an image
 "
 " It is 'current buffer path'/:imagesdir:
-func! s:asciidoctorImagesPath()
-    return expand('%:p:h').'/'.s:asciidoctorImagesDir()
+func! s:asciidocImagesPath()
+    return expand('%:p:h').'/'.s:asciidocImagesDir()
 endfunc
 
 "" Return list of generated images for the current buffer.
 "
 " If buffer name is `document.adoc`, search in a given path for the file
-" pattern `g:asciidoctor_img_paste_pattern`.
+" pattern `g:asciidoc_img_paste_pattern`.
 "
 " Example:
 " `img_document_1.png`
 " `img_document_2.png`
-func! s:asciidoctorListImages(path)
-    let rxpattern = '\V\[\\/]'.printf(g:asciidoctor_img_paste_pattern, expand('%:t:r'), '\d\+').'\$'
+func! s:asciidocListImages(path)
+    let rxpattern = '\V\[\\/]'.printf(g:asciidoc_img_paste_pattern, expand('%:t:r'), '\d\+').'\$'
     let images = globpath(a:path, '*.png', 1, 1)
     return filter(images, {k,v -> v =~ rxpattern})
 endfunc
@@ -54,8 +54,8 @@ endfunc
 " `img_document_23.png` --> 23
 " `img_document.png` --> 0 
 " `any other` --> 0 
-func! s:asciidoctorExtractIndex(filename)
-    let rxpattern = '\V\[\\/]'.printf(g:asciidoctor_img_paste_pattern, expand('%:t:r'), '\zs\d\+\ze').'\$'
+func! s:asciidocExtractIndex(filename)
+    let rxpattern = '\V\[\\/]'.printf(g:asciidoc_img_paste_pattern, expand('%:t:r'), '\zs\d\+\ze').'\$'
     let index = matchstr(a:filename, rxpattern)
     if index == ''
         let index = '0'
@@ -71,26 +71,26 @@ endfunc
 " ...
 " Generate a new image name:
 " `img_document_3.png
-func! s:asciidoctorGenerateImageName(path)
-    let index = max(map(s:asciidoctorListImages(a:path), 
-                \{k,v -> s:asciidoctorExtractIndex(v)})) + 1
-    return printf(g:asciidoctor_img_paste_pattern, expand('%:t:r'), index)
+func! s:asciidocGenerateImageName(path)
+    let index = max(map(s:asciidocListImages(a:path), 
+                \{k,v -> s:asciidocExtractIndex(v)})) + 1
+    return printf(g:asciidoc_img_paste_pattern, expand('%:t:r'), index)
 endfunc
 
 "" Paste image from the clipboard.
 "
 " * Save image as png file to the :imagesdir:
 " * Insert `image::link.png[]` at cursor position
-func! asciidoctor#pasteImage() abort
-    let path = s:asciidoctorImagesPath()
+func! asciidoc#pasteImage() abort
+    let path = s:asciidocImagesPath()
     if !isdirectory(path)
         echoerr 'Image directory '.path.' doesn''t exist!'
         return
     endif
 
-    let fname = s:asciidoctorGenerateImageName(path)
+    let fname = s:asciidocGenerateImageName(path)
 
-    let cmd = printf(g:asciidoctor_img_paste_command, path, fname)
+    let cmd = printf(g:asciidoc_img_paste_command, path, fname)
 
     let res = system(cmd)
     if v:shell_error
@@ -106,13 +106,13 @@ endfunc
 
 
 "" Check header (20 lines) of the file for default source language
-func! asciidoctor#detect_source_language()
+func! asciidoc#detect_source_language()
     for line in getline(1, 20)
         let m = matchlist(line, '^:source-language: \(.*\)$')
         if !empty(m)
             let src_lang = s:trim(m[1])
             if src_lang != ''
-                let b:asciidoctor_source_language = s:trim(m[1])
+                let b:asciidoc_source_language = s:trim(m[1])
                 break
             endif
         endif
@@ -122,18 +122,18 @@ endfunc
 "" Refresh highlighting for default source language.
 "
 " Should be called on buffer write.
-func! asciidoctor#refresh_source_language_hl()
-    let cur_b_source_language = get(b:, "asciidoctor_source_language", "NONE")
+func! asciidoc#refresh_source_language_hl()
+    let cur_b_source_language = get(b:, "asciidoc_source_language", "NONE")
 
-    call asciidoctor#detect_source_language()
+    call asciidoc#detect_source_language()
 
-    if cur_b_source_language != get(b:, "asciidoctor_source_language", "NONE")
+    if cur_b_source_language != get(b:, "asciidoc_source_language", "NONE")
         syn enable
     endif
 endfunc
 
 "" Test bibliography completefunc
-func! asciidoctor#complete_bibliography(findstart, base)
+func! asciidoc#complete_bibliography(findstart, base)
     if a:findstart
         let prefix = strpart(getline('.'), 0, col('.')-1)
         let m = match(prefix, 'cite\%(np\)\?:\[\zs[[:alnum:]]*$')
@@ -179,7 +179,7 @@ endfunc
 
 "" Check header (30 lines) of the file for theme name
 " return theme name
-func! asciidoctor#detect_pdf_theme()
+func! asciidoc#detect_pdf_theme()
     let result = ''
     for line in getline(1, 30)
         let m = matchlist(line, '^:pdf-theme: \(.*\)$')
@@ -193,14 +193,14 @@ func! asciidoctor#detect_pdf_theme()
 endfunc
 
 
-"" asciidoctor header text object
+"" asciidoc header text object
 " * inner object is the text between prev section header(excluded) and the next
 "   section of the same level(excluded) or end of file.
 "   Except for `= Title`: text between title(excluded) and first `== Section`(excluded) or end of file.
 " * an object is the text between prev section header(included) and the next section of the same
 "   level(excluded) or end of file.
 "   Except for `= Title`: text between title(included) and first `== Section`(excluded) or end of file.
-func! asciidoctor#header_textobj(inner) abort
+func! asciidoc#header_textobj(inner) abort
     let lnum_start = search('^=\+\s\+[^[:space:]=]', "ncbW")
     if lnum_start
         let lvlheader = matchstr(getline(lnum_start), '^=\+')
@@ -222,10 +222,10 @@ endfunc
 
 
 
-"" asciidoctor delimited block text object
+"" asciidoc delimited block text object
 " * inner object is the text between delimiters
 " * an object is the text between between delimiters plus delimiters included.
-func! asciidoctor#delimited_block_textobj(inner) abort
+func! asciidoc#delimited_block_textobj(inner) abort
     let lnum_start = search('^\(\(-\{2,}\)\|\(=\{4,}\)\|\(_\{4,}\)\|\(\*\{4,}\)\|\(\.\{4,}\)\)\s*$', "ncbW")
     if lnum_start
         let delim = getline(lnum_start)
@@ -263,13 +263,13 @@ func! s:wsl_to_windows_path(path) abort
 endfunc
 
 
-func! asciidoctor#open_file(filename)
+func! asciidoc#open_file(filename)
     if filereadable(a:filename)
         if exists("$WSLENV")
-            exe g:asciidoctor_opener . ' '
+            exe g:asciidoc_opener . ' '
                         \ . shellescape(s:wsl_to_windows_path(a:filename))
         else
-            exe g:asciidoctor_opener . ' ' . shellescape(a:filename)
+            exe g:asciidoc_opener . ' ' . shellescape(a:filename)
         endif
     else
         echom a:filename . " doesn't exist!"
@@ -278,8 +278,8 @@ endfunc
 
 
 "" to open URLs/files with gx/gf mappings
-func! asciidoctor#open_url(...) abort
-    let cmd = get(a:, 1, g:asciidoctor_opener)
+func! asciidoc#open_url(...) abort
+    let cmd = get(a:, 1, g:asciidoc_opener)
 
     " by default check WORD under cursor
     let word = expand("<cWORD>")
@@ -336,7 +336,7 @@ endfunc
 "" * Doesn't check for the real syntax sections (might fail with "pseudo" sections
 ""   embedded into source blocks)
 "" * Doesn't work for underlined sections.
-func! asciidoctor#promote_section() abort
+func! asciidoc#promote_section() abort
     let save = winsaveview()
     try
         if search('^=\+\s\+\S', 'cbW')
@@ -364,7 +364,7 @@ endfunc
 "" * Doesn't check for the real syntax sections (might fail with "pseudo" sections
 ""   embedded into source blocks)
 "" * Doesn't work for underlined sections.
-func! asciidoctor#demote_section() abort
+func! asciidoc#demote_section() abort
     let save = winsaveview()
     try
         if search('^=\+\s\+\S', 'cbW')
