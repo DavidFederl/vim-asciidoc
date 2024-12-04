@@ -1,5 +1,5 @@
-= Vim ❤️ Asciidoctor
-:author: Maxim Kim
+= Vim ❤️ Asciidoc
+:author: David P. Federl
 :experimental:
 :toc: left
 :toclevels: 3
@@ -8,27 +8,27 @@
 :source-highlighter: rouge
 :rouge-style: github
 :source-linenums-option:
-:revdate: 2018-11-19
+:revdate: 2024-12-04
 :imagesdir: images
 
 image::image1.png[]
 
 == Intro
 
-Vim has syntax highlighting for asciidoc out of the box. And it is/was really
+Vim has a native syntax highlighting for asciidoc. And it was really
 slow for me, probably because it tries to be very smart about syntax.
 
 This plugin:
 
     - has different syntax highlighting;
-    - is way faster (your vim lags less :) );
+    - is way faster (your Vim lags less :) );
     - has folding;
-    - has commands to compile documents (html, pdf, docx).
+    - has commands to compile documents (HTML, PDF, docx).
 
 
 == Installation
 
-=== Vim8 built in packages
+=== Vim8 built-in packages
 
 You can use git command on your command line:
 [source,bash]
@@ -69,155 +69,141 @@ Plug 'DavidFederl/vim-asciidoc'
 
 == Setup
 
-NOTE: To use basic asciidoctor with vim you don't have to setup anything in vim. At
+NOTE: To use basic asciidoc with vim you do not have to setup anything in vim. At
 least this was the intention. :)
 
-The following is an example setup. Part of it might not work for you if you don't have
-asciidoctor extensions installed. Or you don't have custom PDF themes and fonts.
+The following is an example setup. Part of it might not work for you if you do not have
+asciidoc extensions installed. Or you do not have custom PDF themes and fonts.
 
-.asciidoctor
+.asciidoc
 [source,vim]
 --------
-
 " What to use for HTML, default `asciidoctor`.
-let g:asciidoctor_executable = 'asciidoctor'
+let g:asciidoc_executable = 'asciidoctor'
 
 " What extensions to use for HTML, default `[]`.
-let g:asciidoctor_extensions = ['asciidoctor-diagram', 'asciidoctor-rouge']
+let g:asciidoc_extensions = ['asciidoctor-diagram', 'asciidoctor-rouge']
 
 " Path to the custom css
-let g:asciidoctor_css_path = '~/docs/AsciiDocThemes'
+let g:asciidoc_css_path = '~/docs/AsciiDocThemes'
 
 " Custom css name to use instead of built-in
-let g:asciidoctor_css = 'haba-asciidoctor.css'
-
+let g:asciidoc_css = 'custom-asciidoc.css'
 --------
 
-.asciidoctor-pdf
+.asciidoc-pdf
 [source,vim]
 --------
-
 " What to use for PDF, default `asciidoctor-pdf`.
-let g:asciidoctor_pdf_executable = 'asciidoctor-pdf'
+let g:asciidoc_pdf_executable = 'asciidoctor-pdf'
 
 " What extensions to use for PDF, default `[]`.
-let g:asciidoctor_pdf_extensions = ['asciidoctor-diagram']
+let g:asciidoc_pdf_extensions = ['asciidoctor-diagram']
 
 " Path to PDF themes, default `''`.
-let g:asciidoctor_pdf_themes_path = '~/docs/AsciiDocThemes'
+let g:asciidoc_pdf_themes_path = '~/docs/AsciiDocThemes'
 
 " Path to PDF fonts, default `''`.
-let g:asciidoctor_pdf_fonts_path = '~/docs/AsciiDocThemes/fonts'
-
+let g:asciidoc_pdf_fonts_path = '~/docs/AsciiDocThemes/fonts'
 --------
 
-.asciidoctor-docx
+.asciidoc-docx
 [source,vim]
 --------
-
 " What to use for DOCX, default `pandoc`.
 " The DOCX 'compilation' process is to generate `docbook` using
-" `g:asciidoctor_executable` and then to generate DOCX out of `docbook`
+" `g:asciidoc_executable` and then to generate DOCX out of `docbook`
 " using `pandoc`.
-let g:asciidoctor_pandoc_executable = 'pandoc'
+let g:asciidoc_pandoc_executable = 'pandoc'
 
 "" --data-dir
-let g:asciidoctor_pandoc_data_dir = '~/docs/.pandoc'
+let g:asciidoc_pandoc_data_dir = '~/docs/.pandoc'
 
 " Other parameters you want to feed pandoc
-let g:asciidoctor_pandoc_other_params = '--toc'
+let g:asciidoc_pandoc_other_params = '--toc'
 
 " Reference document to reuse styles
-" If not set up asciidoctor looks for the theme name
+" If not set up asciidoc looks for the theme name
 " :pdf-style: mytheme
 " in the first 30 lines and generate reference-doc filename:
-" g:asciidoctor_pandoc_data_dir + mytheme + '-reference.docx'
+" g:asciidoc_pandoc_data_dir + mytheme + '-reference.docx'
 " for example: ~/docs/.pandoc/mytheme-reference.docx
-let g:asciidoctor_pandoc_reference_doc = 'custom-reference.docx'
-
+let g:asciidoc_pandoc_reference_doc = 'custom-reference.docx'
 --------
 
 .folding
 [source,vim]
 --------
-
 " Fold sections, default `0`.
-let g:asciidoctor_folding = 1
+let g:asciidoc_folding = 1
 
 " Fold options, default `0`.
-let g:asciidoctor_fold_options = 1
-
+let g:asciidoc_fold_options = 1
 --------
 
 .syntax
 [source,vim]
 --------
-
 " Conceal *bold*, _italic_, `code` and urls in lists and paragraphs, default `0`.
 " See limitations in end of the README
-let g:asciidoctor_syntax_conceal = 1
+let g:asciidoc_syntax_conceal = 1
 
 " Highlight indented text, default `1`.
-let g:asciidoctor_syntax_indented = 0
-
+let g:asciidoc_syntax_indented = 0
 --------
 
 .syntax highlighting for languages in [source] blocks
 [source,vim]
 --------
-
 " List of filetypes to highlight, default `[]`
-let g:asciidoctor_fenced_languages = ['python', 'c', 'javascript']
-
+let g:asciidoc_fenced_languages = ['python', 'c', 'javascript']
 --------
 
 .default mappings... there are no default mappings
 [source,vim]
 --------
-
 " Function to create buffer local mappings and add default compiler
-fun! AsciidoctorMappings()
-    nnoremap <buffer> <leader>oo :AsciidoctorOpenRAW<CR>
-    nnoremap <buffer> <leader>op :AsciidoctorOpenPDF<CR>
-    nnoremap <buffer> <leader>oh :AsciidoctorOpenHTML<CR>
-    nnoremap <buffer> <leader>ox :AsciidoctorOpenDOCX<CR>
-    nnoremap <buffer> <leader>ch :Asciidoctor2HTML<CR>
-    nnoremap <buffer> <leader>cp :Asciidoctor2PDF<CR>
-    nnoremap <buffer> <leader>cx :Asciidoctor2DOCX<CR>
-    nnoremap <buffer> <leader>p :AsciidoctorPasteImage<CR>
+fun! AsciidocMappings()
+    nnoremap <buffer> <leader>oo :AsciidocOpenRAW<CR>
+    nnoremap <buffer> <leader>op :AsciidocOpenPDF<CR>
+    nnoremap <buffer> <leader>oh :AsciidocOpenHTML<CR>
+    nnoremap <buffer> <leader>ox :AsciidocOpenDOCX<CR>
+    nnoremap <buffer> <leader>ch :Asciidoc2HTML<CR>
+    nnoremap <buffer> <leader>cp :Asciidoc2PDF<CR>
+    nnoremap <buffer> <leader>cx :Asciidoc2DOCX<CR>
+    nnoremap <buffer> <leader>p :AsciidocPasteImage<CR>
     " :make will build pdfs
-    compiler asciidoctor2pdf
+    compiler asciidoc2pdf
 endfun
 
-" Call AsciidoctorMappings for all `*.adoc` and `*.asciidoc` files
-augroup asciidoctor
+" Call AsciidocMappings for all `*.adoc` and `*.asciidoc` files
+augroup asciidoc
     au!
-    au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
+    au BufEnter *.adoc,*.asciidoc call AsciidocMappings()
 augroup END
-
 --------
 
 
 == Commands
 
-All commands are buffer local -- available only for asciidoctor files (`set filetype=asciidoctor`)
+All commands are buffer local -- available only for asciidoc files (`set filetype=asciidoc`)
 
-* `Asciidoctor2HTML` -- convert current file to `HTML`.
-* `Asciidoctor2PDF` -- convert current file to `PDF`.
-* `Asciidoctor2DOCX` -- convert current file to `DOCX`.
-* `AsciidoctorOpenRAW` -- open current file in a browser. Chrome and Firefox has extentsions to render barebone `adoc` files.
-* `AsciidoctorOpenPDF` -- open `PDF` of the current file using default PDF viewer.
-* `AsciidoctorOpenHTML` -- open `HTML` of the current file using default web browser.
-* `AsciidoctorOpenDOCX` -- open `DOCX` of the current file using default DOCX
+* `Asciidoc2HTML` -- convert current file to `HTML`.
+* `Asciidoc2PDF` -- convert current file to `PDF`.
+* `Asciidoc2DOCX` -- convert current file to `DOCX`.
+* `AsciidocOpenRAW` -- open current file in a browser. Chrome and Mozilla Firefox has extentsions to render barebone `adoc` files.
+* `AsciidocOpenPDF` -- open `PDF` of the current file using default PDF viewer.
+* `AsciidocOpenHTML` -- open `HTML` of the current file using default web browser.
+* `AsciidocOpenDOCX` -- open `DOCX` of the current file using default DOCX
   viewer. (I haven't tried it with LibreOffice or whatever else there might be.
   Also haven't tried it on linux and OSX...)
 
 [NOTE]
 ======
-Commands: `Asciidoctor2HTML`, `Asciidoctor2PDF` should convert files
-if link:https://asciidoctor.org/docs/user-manual/#installing-the-asciidoctor-ruby-gem[asciidoctor] and link:https://github.com/asciidoctor/asciidoctor-pdf#getting-started[asciidoctor-pdf] are installed.
+Commands: `Asciidoc2HTML`, `Asciidoc2PDF` should convert files
+if link:https://asciidoc.org/docs/user-manual/#installing-the-asciidoc-ruby-gem[asciidoc] and link:https://github.com/asciidoc/asciidoc-pdf#getting-started[asciidoc-pdf] are installed.
 
-Command `Asciidoctor2DOCX` should also have link:https://pandoc.org/installing.html[pandoc] installed.
+Command `Asciidoc2DOCX` should also have link:https://pandoc.org/installing.html[pandoc] installed.
 ======
 
 
@@ -229,7 +215,7 @@ Command `Asciidoctor2DOCX` should also have link:https://pandoc.org/installing.h
 [literal]
 .........
 
-= Asciidoctor Title: Hanging around
+= Asciidoc Title: Hanging around
 
 This is the first para and it will be rendered with bigger text.
 
@@ -249,7 +235,7 @@ Text of section 2
 .........
 
 :w<CR>
-:Asciidoctor2HTML<CR>
+:Asciidoc2HTML<CR>
 
 .........
 
@@ -258,7 +244,7 @@ Text of section 2
 [literal]
 .........
 
-:AsciidoctorOpenHTML<CR>
+:AsciidocOpenHTML<CR>
 
 .........
 
@@ -274,7 +260,7 @@ image::test_html.png[]
 
 === DOCX output
 
-If you use `:Asciidoctor2DOCX` and `:AsciidoctorOpenDOCX` commands instead, you
+If you use `:Asciidoc2DOCX` and `:AsciidocOpenDOCX` commands instead, you
 should see something like this (provided you have `pandoc` and `MSWord`
 installed:)
 
@@ -284,7 +270,7 @@ image::test_docx.png[]
 
 === PDF output
 
-And if you use `:Asciidoctor2PDF` and `:AsciidoctorOpenPDF` commands, you
+And if you use `:Asciidoc2PDF` and `:AsciidocOpenPDF` commands, you
 should see something like this (I have my own default theme and fonts, so you
 probably see it a bit different) :
 
@@ -305,7 +291,7 @@ Vim can't access graphical part of clipboard thus an external tool should be use
 * For OSX I use `pngpaste` (could be installed using `brew`)
 * For Linux -- `xclip` could be used (thx Matthias Fulz @mfulz)
 
-image::https://github.com/habamax/habamax.github.io/blob/master/assets/gifs/asciidoctor-pasteimg.gif[animated screen with image pasting]
+image::https://github.com/habamax/habamax.github.io/blob/master/assets/gifs/asciidoc-pasteimg.gif[animated screen with image pasting]
 
 .setup
 [source,vim]
@@ -313,20 +299,20 @@ image::https://github.com/habamax/habamax.github.io/blob/master/assets/gifs/asci
 " first `%s` is a path
 " second `%s` is an image file name
 " this is default for windows
-let g:asciidoctor_img_paste_command = 'gm convert clipboard: %s%s'
+let g:asciidoc_img_paste_command = 'gm convert clipboard: %s%s'
 
 " for osx
-" let g:asciidoctor_img_paste_command = 'pngpaste %s%s'
+" let g:asciidoc_img_paste_command = 'pngpaste %s%s'
 
 " for linux
-" let g:asciidoctor_img_paste_command = 'xclip -selection clipboard -t image/png -o > %s%s'
+" let g:asciidoc_img_paste_command = 'xclip -selection clipboard -t image/png -o > %s%s'
 
 
 
 " first `%s` is a base document name:
 " (~/docs/hello-world.adoc => hello-world)
 " second `%s` is a number of the image.
-let g:asciidoctor_img_paste_pattern = 'img_%s_%s.png'
+let g:asciidoc_img_paste_pattern = 'img_%s_%s.png'
 --------
 
 If there is `:imagesdir:` as an option set up in a document, clipboard image
@@ -357,16 +343,16 @@ citenp:[cit<C-X><C-U>
 
 [NOTE]
 ======
-To create bibliography in asciidoctor, i.e., to put it into PDF or HTML you
+To create bibliography in asciidoc, i.e., to put it into PDF or HTML you
 should install
-https://github.com/asciidoctor/asciidoctor-bibtex[asciidoctor-bibtex]
-extension and provide it to vim-asciidoctor extension list(s):
+https://github.com/asciidoc/asciidoc-bibtex[asciidoc-bibtex]
+extension and provide it to vim-asciidoc extension list(s):
 
 [source,vim]
-" For asciidoctor backend
-let g:asciidoctor_extensions = ['asciidoctor-bibtex']
-" For asciidoctor-pdf backend
-let g:asciidoctor_pdf_extensions = ['asciidoctor-bibtex']
+" For asciidoc backend
+let g:asciidoc_extensions = ['asciidoctor-bibtex']
+" For asciidoc-pdf backend
+let g:asciidoc_pdf_extensions = ['asciidoctor-bibtex']
 
 ======
 
@@ -378,8 +364,8 @@ let g:asciidoctor_pdf_extensions = ['asciidoctor-bibtex']
 Add following snippet to your vim config to generate an HTML file upon saving:
 [source,vim]
 --------
-augroup ON_ASCIIDOCTOR_SAVE | au!
-    au BufWritePost *.adoc :Asciidoctor2HTML
+augroup ON_ASCIIDOC_SAVE | au!
+    au BufWritePost *.adoc :Asciidoc2HTML
 augroup end
 --------
 
@@ -387,19 +373,19 @@ If you want to add text files to the mix you can have something similar to:
 
 [source,vim]
 --------
-func! ConvertAsciidoctorToHTML()
-    " Text file with asciidoctor contents?
+func! ConvertAsciidocToHTML()
+    " Text file with asciidoc contents?
     if &filetype == 'text' && getline(1) =~ '^= .*$'
-        " text files have no asciidoctor commands
-        set filetype=asciidoctor
-        Asciidoctor2HTML
+        " text files have no asciidoc commands
+        set filetype=asciidoc
+        Asciidoc2HTML
         set filetype=text
-    elseif &filetype == 'asciidoctor'
-        Asciidoctor2HTML
+    elseif &filetype == 'asciidoc'
+        Asciidoc2HTML
     endif
 endfunc
-augroup ON_ASCIIDOCTOR_SAVE | au!
-    au BufWritePost *.adoc,*.txt call ConvertAsciidoctorToHTML()
+augroup ON_ASCIIDOC_SAVE | au!
+    au BufWritePost *.adoc,*.txt call ConvertAsciidocToHTML()
 augroup end
 --------
 
@@ -416,55 +402,55 @@ Colorschemes can use following highlight groups to redefine default highlighting
 | Highlight Group Name
 | Default Value
 
-|asciidoctorTitle                 |Title
-|asciidoctorSetextHeader          |Title
-|asciidoctorH1                    |Title
-|asciidoctorH2                    |Title
-|asciidoctorH3                    |Title
-|asciidoctorH4                    |Title
-|asciidoctorH5                    |Title
-|asciidoctorH6                    |Title
-|asciidoctorTitleDelimiter        |Type
-|asciidoctorH1Delimiter           |Type
-|asciidoctorH2Delimiter           |Type
-|asciidoctorH3Delimiter           |Type
-|asciidoctorH4Delimiter           |Type
-|asciidoctorH5Delimiter           |Type
-|asciidoctorH6Delimiter           |Type
-|asciidoctorSetextHeaderDelimiter |Type
-|asciidoctorListMarker            |Delimiter
-|asciidoctorOrderedListMarker     |asciidoctorListMarker
-|asciidoctorListContinuation      |PreProc
-|asciidoctorComment               |Comment
-|asciidoctorIndented              |Comment
-|asciidoctorPlus                  |PreProc
-|asciidoctorPageBreak             |PreProc
-|asciidoctorCallout               |Float
-|asciidoctorCalloutDesc           |String
-|asciidoctorListingBlock          |Comment
-|asciidoctorLiteralBlock          |Comment
-|asciidoctorFile                  |Underlined
-|asciidoctorUrl                   |Underlined
-|asciidoctorEmail                 |Underlined
-|asciidoctorUrlAuto               |Underlined
-|asciidoctorEmailAuto             |Underlined
-|asciidoctorUrlDescription        |String
-|asciidoctorLink                  |Underlined
-|asciidoctorAnchor                |Underlined
-|asciidoctorAttribute             |Identifier
-|asciidoctorCode                  |Constant
-|asciidoctorOption                |PreProc
-|asciidoctorBlock                 |PreProc
-|asciidoctorBlockOptions          |PreProc
-|asciidoctorTableSep              |PreProc
-|asciidoctorTableCell             |PreProc
-|asciidoctorTableEmbed            |PreProc
-|asciidoctorInlineAnchor          |PreProc
-|asciidoctorMacro                 |Macro
-|asciidoctorIndexTerm             |Macro
-|asciidoctorBold                  |gui=bold cterm=bold
-|asciidoctorItalic                |gui=italic cterm=italic
-|asciidoctorBoldItalic            |gui=bold,italic cterm=bold,italic
+|asciidocTitle                 |Title
+|asciidocSetextHeader          |Title
+|asciidocH1                    |Title
+|asciidocH2                    |Title
+|asciidocH3                    |Title
+|asciidocH4                    |Title
+|asciidocH5                    |Title
+|asciidocH6                    |Title
+|asciidocTitleDelimiter        |Type
+|asciidocH1Delimiter           |Type
+|asciidocH2Delimiter           |Type
+|asciidocH3Delimiter           |Type
+|asciidocH4Delimiter           |Type
+|asciidocH5Delimiter           |Type
+|asciidocH6Delimiter           |Type
+|asciidocSetextHeaderDelimiter |Type
+|asciidocListMarker            |Delimiter
+|asciidocOrderedListMarker     |asciidocListMarker
+|asciidocListContinuation      |PreProc
+|asciidocComment               |Comment
+|asciidocIndented              |Comment
+|asciidocPlus                  |PreProc
+|asciidocPageBreak             |PreProc
+|asciidocCallout               |Float
+|asciidocCalloutDesc           |String
+|asciidocListingBlock          |Comment
+|asciidocLiteralBlock          |Comment
+|asciidocFile                  |Underlined
+|asciidocUrl                   |Underlined
+|asciidocEmail                 |Underlined
+|asciidocUrlAuto               |Underlined
+|asciidocEmailAuto             |Underlined
+|asciidocUrlDescription        |String
+|asciidocLink                  |Underlined
+|asciidocAnchor                |Underlined
+|asciidocAttribute             |Identifier
+|asciidocCode                  |Constant
+|asciidocOption                |PreProc
+|asciidocBlock                 |PreProc
+|asciidocBlockOptions          |PreProc
+|asciidocTableSep              |PreProc
+|asciidocTableCell             |PreProc
+|asciidocTableEmbed            |PreProc
+|asciidocInlineAnchor          |PreProc
+|asciidocMacro                 |Macro
+|asciidocIndexTerm             |Macro
+|asciidocBold                  |gui=bold cterm=bold
+|asciidocItalic                |gui=italic cterm=italic
+|asciidocBoldItalic            |gui=bold,italic cterm=bold,italic
 |===
 
 If you want to change highlight yourself for existing colorscheme without
@@ -472,20 +458,20 @@ touching it, add the following to you vimrc:
 
 [source,vim]
 --------
-func! AsciidoctorHighlight()
-    " Highlight asciidoctor syntax with colors you like.
+func! AsciidocHighlight()
+    " Highlight asciidoc syntax with colors you like.
     " For solarized8 colorscheme
     if get(g:, "colors_name", "default") == "solarized8"
-        hi asciidoctorTitle guifg=#ff0000 gui=bold ctermfg=red cterm=bold
-        hi asciidoctorOption guifg=#00ff00 ctermfg=green
-        hi link asciidoctorH1 Directory
+        hi asciidocTitle guifg=#ff0000 gui=bold ctermfg=red cterm=bold
+        hi asciidocOption guifg=#00ff00 ctermfg=green
+        hi link asciidocH1 Directory
     elseif get(g:, "colors_name", "default") == "default"
-        hi link asciidoctorIndented PreProc
+        hi link asciidocIndented PreProc
     endif
 endfunc
 augroup ASCIIDOCTOR_COLORS | au!
-    au Colorscheme * call AsciidoctorHighlight()
-    au BufNew,BufRead *.adoc call AsciidoctorHighlight()
+    au Colorscheme * call AsciidocHighlight()
+    au BufNew,BufRead *.adoc call AsciidocHighlight()
 augroup end
 --------
 
@@ -508,7 +494,7 @@ Works for all table cells, although should only be applied to `a|` cells.
     Indented text is highlighted as indented
     which is kind of incorrect
 
-a| Asciidoctor cell
+a| Asciidoc cell
 
     Indented text is highlighted as indented
     which is correct
@@ -586,18 +572,18 @@ nnoremap <leader>+ :call <SID>underline(['+', '=', '-', '~', '^'])<CR>
 
 Links with additional attributes are not concealed to description:
 
-    https://discuss.asciidoctor.org[Discuss Asciidoctor,role=external,window=_blank]
-    https://discuss.asciidoctor.org[Discuss Asciidoctor^]
+    https://discuss.asciidoc.org[Discuss Asciidoc,role=external,window=_blank]
+    https://discuss.asciidoc.org[Discuss Asciidoc^]
     https://example.org["Google, Yahoo, Bing^",role=teal]
 
 With `set conceallevel=3` looks like:
 
-    Discuss Asciidoctor,role=external,window=_blank
-    Discuss Asciidoctor^
+    Discuss Asciidoc,role=external,window=_blank
+    Discuss Asciidoc^
     "Google, Yahoo, Bing^",role=teal
 
 Although it should look like:
 
-    Discuss Asciidoctor
-    Discuss Asciidoctor
+    Discuss Asciidoc
+    Discuss Asciidoc
     Google, Yahoo, Bing
