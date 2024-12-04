@@ -16,7 +16,7 @@ else
     let s:extensions = "-r ".join(g:asciidoc_extensions, ' -r ')
 endif
 
-let s:asciidoc_executable = get(g:, 'asciidoc_executable', 'asciidoc')
+let s:asciidoc_executable = get(g:, 'asciidoc_executable', 'asciidoctor')
 
 let s:asciidoc_pandoc_executable = get(g:, 'asciidoc_pandoc_executable', 'pandoc')
 

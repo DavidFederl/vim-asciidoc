@@ -42,7 +42,7 @@ else
     let s:extensions = "-r ".join(g:asciidoc_pdf_extensions, ' -r ')
 endif
 
-let s:asciidoc_pdf_executable = get(g:, 'asciidoc_pdf_executable', 'asciidoc-pdf')
+let s:asciidoc_pdf_executable = get(g:, 'asciidoc_pdf_executable', 'asciidoctor-pdf')
 
 let s:filename = shellescape(get(g:, 'asciidoc_use_fullpath', v:true) ? expand("%:p") : expand("%:t"))
 

@@ -28,7 +28,7 @@ else
     let s:css_name = '-a stylesheet='.shellescape(g:asciidoc_css)
 endif
 
-let s:asciidoc_executable = get(g:, 'asciidoc_executable', 'asciidoc')
+let s:asciidoc_executable = get(g:, 'asciidoc_executable', 'asciidoctor')
 
 let s:filename = shellescape(get(g:, 'asciidoc_use_fullpath', v:true) ? expand("%:p") : expand("%:t"))
 
